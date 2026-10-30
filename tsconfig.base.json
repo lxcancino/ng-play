@@ -5,16 +5,17 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "bundler",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2022",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "strict": false,
-    "paths": {}
+    "strict": true,
+    "paths": {
+      "@ng-play/shared/util": ["./libs/shared/util/src/index.ts"],
+      "@ng-play/angular/ui": ["./libs/angular/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

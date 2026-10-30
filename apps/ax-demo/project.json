@@ -4,13 +4,11 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/ax-demo/src",
-  "tags": [],
+  "tags": ["type:app", "framework:angular"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/ax-demo",
@@ -22,9 +20,7 @@
             "input": "apps/ax-demo/public"
           }
         ],
-        "styles": [
-          "apps/ax-demo/src/styles.css"
-        ]
+        "styles": ["apps/ax-demo/src/styles.css"]
       },
       "configurations": {
         "production": {
