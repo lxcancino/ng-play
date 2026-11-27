@@ -60,7 +60,7 @@ Current layout:
 
 | Path | Tags | Path alias |
 | --- | --- | --- |
-| `apps/ax-demo` | `type:app`, `framework:angular` | - |
+| `apps/ax-tasks` | `type:app`, `framework:angular` | - |
 | `libs/angular/ui` | `type:lib`, `framework:angular` | `@ng-play/angular/ui` |
 | `libs/shared/util` | `type:lib`, `framework:agnostic` | `@ng-play/shared/util` |
 

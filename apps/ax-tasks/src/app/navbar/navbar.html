@@ -1,0 +1,12 @@
+<nav class="navbar" aria-label="Main">
+  <span class="brand">ax-tasks</span>
+  <ul>
+    @for (item of items; track item.route) {
+    <li>
+      <a [routerLink]="item.route" routerLinkActive="active"
+        >{{ item.label }}</a
+      >
+    </li>
+    }
+  </ul>
+</nav>

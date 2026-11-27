@@ -1,0 +1,34 @@
+<a routerLink="/tasks">← All tasks</a>
+
+@if (task.isLoading()) {
+<p class="muted">Loading task…</p>
+} @if (task.error(); as err) {
+<p class="error">{{ err.message }}</p>
+} @if (task.value(); as t) {
+<article>
+  <h2>{{ t.key }} · {{ t.title }}</h2>
+  <p>{{ t.description }}</p>
+  <dl>
+    <dt>Type</dt>
+    <dd>{{ t.type }}</dd>
+    <dt>Priority</dt>
+    <dd>{{ t.priority }}</dd>
+    <dt>Assignee</dt>
+    <dd>{{ assigneeName() }}</dd>
+    <dt>Updated</dt>
+    <dd>{{ t.updatedAt | date: 'medium' }}</dd>
+  </dl>
+
+  <label>
+    Status
+    <select [value]="t.status" (change)="onStatusChange($event)">
+      @for (status of statuses; track status) {
+      <option [value]="status">{{ status }}</option>
+      }
+    </select>
+  </label>
+  @if (actionError(); as msg) {
+  <p class="error">{{ msg }}</p>
+  }
+</article>
+}

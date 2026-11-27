@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  font-family: system-ui, sans-serif;
+  padding: 1rem;
+}
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+}
+dt {
+  font-weight: 600;
+}
+dd {
+  margin: 0;
+}
+label {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.muted {
+  color: #666;
+}
+.error {
+  color: #b00020;
+}
