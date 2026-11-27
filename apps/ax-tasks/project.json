@@ -1,9 +1,9 @@
 {
-  "name": "ax-demo",
+  "name": "ax-tasks",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/ax-demo/src",
+  "sourceRoot": "apps/ax-tasks/src",
   "tags": ["type:app", "framework:angular"],
   "targets": {
     "build": {
@@ -11,16 +11,16 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/ax-demo",
-        "browser": "apps/ax-demo/src/main.ts",
-        "tsConfig": "apps/ax-demo/tsconfig.app.json",
+        "outputPath": "dist/apps/ax-tasks",
+        "browser": "apps/ax-tasks/src/main.ts",
+        "tsConfig": "apps/ax-tasks/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/ax-demo/public"
+            "input": "apps/ax-tasks/public"
           }
         ],
-        "styles": ["apps/ax-demo/src/styles.css"]
+        "styles": ["apps/ax-tasks/src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -51,10 +51,10 @@
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "ax-demo:build:production"
+          "buildTarget": "ax-tasks:build:production"
         },
         "development": {
-          "buildTarget": "ax-demo:build:development"
+          "buildTarget": "ax-tasks:build:development"
         }
       }
     },
@@ -71,8 +71,8 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "ax-demo:build",
-        "staticFilePath": "dist/apps/ax-demo/browser",
+        "buildTarget": "ax-tasks:build",
+        "staticFilePath": "dist/apps/ax-tasks/browser",
         "spa": true
       }
     }

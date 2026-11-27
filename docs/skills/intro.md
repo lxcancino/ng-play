@@ -20,7 +20,7 @@ the common parts, so each exercise only has to cover the new Angular API being p
    - `todo-tasks-skeleton`: User, Task, and Status CRUD with signals, forms, and routes.
      Parameters: `state=signals|resource`, `data=memory|json`.
    - `users-drilldown`: user list plus profile page with `withComponentInputBinding`
-     and route params. The existing `apps/ax-demo/src/app/features/users` is a starting point.
+     and route params. The existing `apps/ax-tasks/src/app/features/users` is a starting point.
 4. **API drills** (later, optional): one skill per API area, e.g. `resource`, `@defer`,
    control flow, signal forms. Each generates a small playground for one feature.
 

@@ -1,0 +1,35 @@
+<header class="toolbar">
+  <h2>Tasks</h2>
+  <input
+    type="search"
+    placeholder="Search by title"
+    [value]="query()"
+    (input)="onSearch($event)"
+  />
+  @if (tasks.isLoading()) {
+  <span class="muted">Searching…</span>
+  }
+</header>
+
+@if (users.isLoading()) {
+<p class="muted">Loading users…</p>
+} @if (users.error()) {
+<p class="error">Could not load users.</p>
+} @if (tasks.error(); as err) {
+<p class="error">{{ err.message }}</p>
+}
+
+<ul class="task-list">
+  @for (task of tasks.value() ?? []; track task.id) {
+  <li>
+    <a [routerLink]="['/tasks', task.id]">{{ task.key }}</a>
+    <span class="title">{{ task.title }}</span>
+    <span class="badge" [attr.data-status]="task.status"
+      >{{ task.status }}</span
+    >
+    <span class="muted">{{ nameOf(task.assigneeId) }}</span>
+  </li>
+  } @empty {
+  <li class="muted">No tasks match “{{ query() }}”.</li>
+  }
+</ul>
