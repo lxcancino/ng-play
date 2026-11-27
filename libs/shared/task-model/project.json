@@ -1,0 +1,19 @@
+{
+  "name": "task-model",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/task-model/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:lib", "framework:agnostic"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/task-model",
+        "main": "libs/shared/task-model/src/index.ts",
+        "tsConfig": "libs/shared/task-model/tsconfig.lib.json",
+        "assets": ["libs/shared/task-model/*.md"]
+      }
+    }
+  }
+}
