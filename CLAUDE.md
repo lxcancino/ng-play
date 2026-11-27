@@ -20,7 +20,6 @@
 - DON'T USE for: basic generator syntax (`nx g @nx/react:app`), standard commands, things you already know
 - The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
-
 <!-- nx configuration end-->
 
 # Project guidelines (ng-play)
@@ -42,11 +41,32 @@ don't overwrite them.
   2. **Specific questions / "why doesn't this work"**: diagnose and explain, then fix.
   3. **Exercise finish**: only when the user says the exercise is good. Complete it
      and tighten the code.
-- Don't commit unless asked. Show changes and ask first (personal `CLAUDE.md` rule).
+- Don't commit unless asked. Show the proposed commit message and wait for approval before
+  committing (personal `CLAUDE.md` rule).
+- Git flow: one branch per topic, branched from `main`. Push the branch, open a PR, and merge
+  it. Don't push or merge to `main` directly.
+- PRs into `main` are squash-only (enforced on the GitHub repo). PR titles become the commit
+  titles on `main`, so write them in Conventional Commits form.
+- Never force-push or rewrite `main` without asking. `main` has one merge commit from before
+  the squash rule (`c6092ae`); leave it alone.
+- Commit messages end with the `Co-Authored-By` trailer from the session's attribution rules.
 - Use `pnpm`, not npm or yarn. The lockfile is `pnpm-lock.yaml` and pnpm 12 is installed.
   Run Nx through pnpm: `pnpm nx <target> <project>`.
 - Don't remove the `allowBuilds` list in `pnpm-workspace.yaml`. It is needed for native
   builds (`nx`, `esbuild`, `lmdb`, and others).
+
+## Current state
+
+- `apps/ax-tasks`: the task skeleton. Routes `/tasks` (list, `resource()` plus debounced
+  `rxResource()` search) and `/tasks/:id` (detail, `resource()` with route params and a status
+  change that calls `reload()`). It has a navbar with one link.
+- `libs/shared/task-model`: pure TypeScript model. `Task`, `User`, `TaskDraft`, and the fixed
+  sets `TASK_TYPES`, `TASK_PRIORITIES`, `TASK_STATUSES`, plus `TERMINAL_TASK_STATUSES` (`closed`).
+- `libs/angular/task-data`: `TaskRepository` port (async methods) with the `TASK_REPOSITORY`
+  token, `InMemoryTaskRepository` with seed JSON, and `provideInMemoryTasks()`. Register the
+  provider in the app's `app.config.ts`.
+- Nothing is connected to a real backend yet. An `httpResource()` lesson will need a NestJS
+  server later.
 
 ## Stack
 
@@ -54,15 +74,40 @@ don't overwrite them.
   via `@analogjs/vitest-angular`, ESLint flat config.
 - Styles: plain CSS (`style: css` in `nx.json` generator defaults).
 
+## Angular API notes (v22)
+
+- `rxResource()` takes `stream`, not `loader`. Its `stream` returns an Observable.
+- `resource()` takes `params` (a signal) and `loader({ params, abortSignal, previous })`.
+  Pass `abortSignal` to `fetch` or `HttpClient` so stale requests are cancelled.
+- Route params reach components as inputs only with `withComponentInputBinding()`.
+- Tests for components that use `RouterLink` need `provideRouter([])`.
+- `DatePipe` must be imported in standalone components that use the `date` pipe.
+
+## Nx and tooling notes
+
+- `@nx/js:library` and `@nx/angular:library` treat `--directory` as relative to the workspace
+  root. Use `--directory=libs/...`.
+- Generators rewrite `nx.json`, `tsconfig.base.json`, and `eslint.config.mjs` in unformatted
+  JSON. Run `pnpm exec prettier --write` on the changed files, or check `git diff` for noise
+  before committing.
+- The `nx-generate` skill isn't available in every session. Fall back to `pnpm exec nx g
+<generator> --help`, then `--dry-run`, then the real run.
+- The Nx MCP server (`nx-mcp`, pinned, in `.mcp.json`) only exposes `nx_docs`.
+- macOS `sed -i` needs a suffix argument (`sed -i ''`). Prefer Python or the Edit tool for
+  in-place edits.
+- Use `--skip-nx-cache` when checking a fresh build or test result.
+
 ## Workspace structure and conventions
 
 Current layout:
 
-| Path | Tags | Path alias |
-| --- | --- | --- |
-| `apps/ax-tasks` | `type:app`, `framework:angular` | - |
-| `libs/angular/ui` | `type:lib`, `framework:angular` | `@ng-play/angular/ui` |
-| `libs/shared/util` | `type:lib`, `framework:agnostic` | `@ng-play/shared/util` |
+| Path                     | Tags                                             | Path alias                   |
+| ------------------------ | ------------------------------------------------ | ---------------------------- |
+| `apps/ax-tasks`          | `type:app`, `framework:angular`                  | -                            |
+| `libs/angular/ui`        | `type:lib`, `framework:angular`                  | `@ng-play/angular/ui`        |
+| `libs/shared/util`       | `type:lib`, `framework:agnostic`                 | `@ng-play/shared/util`       |
+| `libs/shared/task-model` | `type:lib`, `scope:shared`, `framework:agnostic` | `@ng-play/shared/task-model` |
+| `libs/angular/task-data` | `type:lib`, `scope:shared`, `framework:angular`  | `@ng-play/angular/task-data` |
 
 Rules we follow:
 
@@ -77,7 +122,7 @@ Rules we follow:
   - `type:app` may depend only on `type:lib`.
   - `type:lib` may depend only on `type:lib`.
   - `framework:agnostic` may depend only on `framework:agnostic`.
-  When a new tag is added, update these constraints too.
+    When a new tag is added, update these constraints too.
 - **Shared vs. feature skills and libs:**
   - Code reused across apps goes to `libs/shared/*` (framework-agnostic) or `libs/angular/*`
     (Angular-specific), named by role.
