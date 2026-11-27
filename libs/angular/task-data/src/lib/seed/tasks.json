@@ -1,0 +1,80 @@
+[
+  {
+    "id": "t-1",
+    "key": "TSK-1",
+    "title": "Set up CI pipeline",
+    "description": "Run lint, test and build on every pull request.",
+    "type": "task",
+    "status": "done",
+    "priority": "high",
+    "assigneeId": "u-2",
+    "reporterId": "u-1",
+    "createdAt": "2026-11-01T09:00:00.000Z",
+    "updatedAt": "2026-11-05T17:30:00.000Z"
+  },
+  {
+    "id": "t-2",
+    "key": "TSK-2",
+    "title": "Login button does nothing on Safari",
+    "description": "Tapping Sign in has no effect on Safari 17.",
+    "type": "bug",
+    "status": "in-progress",
+    "priority": "critical",
+    "assigneeId": "u-1",
+    "reporterId": "u-3",
+    "createdAt": "2026-11-03T10:15:00.000Z",
+    "updatedAt": "2026-11-20T08:00:00.000Z"
+  },
+  {
+    "id": "t-3",
+    "key": "TSK-3",
+    "title": "Users can export tasks to CSV",
+    "description": "Add an export action on the task list.",
+    "type": "story",
+    "status": "todo",
+    "priority": "medium",
+    "assigneeId": null,
+    "reporterId": "u-1",
+    "createdAt": "2026-11-04T11:00:00.000Z",
+    "updatedAt": "2026-11-04T11:00:00.000Z"
+  },
+  {
+    "id": "t-4",
+    "key": "TSK-4",
+    "title": "Review dark-mode contrast",
+    "description": "Check WCAG AA contrast on all status badges.",
+    "type": "task",
+    "status": "in-review",
+    "priority": "low",
+    "assigneeId": "u-3",
+    "reporterId": "u-2",
+    "createdAt": "2026-11-10T14:20:00.000Z",
+    "updatedAt": "2026-11-22T16:45:00.000Z"
+  },
+  {
+    "id": "t-5",
+    "key": "TSK-5",
+    "title": "Duplicate of TSK-2",
+    "description": "Same Safari login issue reported by support.",
+    "type": "bug",
+    "status": "closed",
+    "priority": "low",
+    "assigneeId": null,
+    "reporterId": "u-2",
+    "createdAt": "2026-11-12T09:30:00.000Z",
+    "updatedAt": "2026-11-13T10:00:00.000Z"
+  },
+  {
+    "id": "t-6",
+    "key": "TSK-6",
+    "title": "Add task priority filter",
+    "description": "Filter the list by critical, high, medium or low.",
+    "type": "story",
+    "status": "todo",
+    "priority": "high",
+    "assigneeId": "u-2",
+    "reporterId": "u-1",
+    "createdAt": "2026-11-15T13:00:00.000Z",
+    "updatedAt": "2026-11-15T13:00:00.000Z"
+  }
+]

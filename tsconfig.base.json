@@ -15,7 +15,8 @@
     "paths": {
       "@ng-play/shared/util": ["./libs/shared/util/src/index.ts"],
       "@ng-play/angular/ui": ["./libs/angular/ui/src/index.ts"],
-      "@ng-play/shared/task-model": ["./libs/shared/task-model/src/index.ts"]
+      "@ng-play/shared/task-model": ["./libs/shared/task-model/src/index.ts"],
+      "@ng-play/angular/task-data": ["./libs/angular/task-data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

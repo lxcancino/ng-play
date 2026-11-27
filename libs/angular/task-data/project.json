@@ -1,0 +1,13 @@
+{
+  "name": "task-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/angular/task-data/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:lib", "framework:angular"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

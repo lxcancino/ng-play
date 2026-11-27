@@ -1,0 +1,15 @@
+[
+  {
+    "id": "u-1",
+    "name": "Ana Torres",
+    "email": "ana@example.com",
+    "avatarUrl": "https://i.pravatar.cc/80?img=5"
+  },
+  { "id": "u-2", "name": "Ben Carter", "email": "ben@example.com" },
+  {
+    "id": "u-3",
+    "name": "Chloe Nguyen",
+    "email": "chloe@example.com",
+    "avatarUrl": "https://i.pravatar.cc/80?img=32"
+  }
+]
