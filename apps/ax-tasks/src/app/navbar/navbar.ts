@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -6,9 +6,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Navbar {
   /** Single source of navigation items. Add entries here as the app grows. */
-  protected readonly items = [{ label: 'Tasks List', route: '/tasks' }];
+  protected readonly items = [
+    { label: 'Tasks List', route: '/tasks' },
+    { label: 'Board', route: '/board' },
+  ];
 }

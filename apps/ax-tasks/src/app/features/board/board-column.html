@@ -1,0 +1,80 @@
+<section class="column">
+  <header>
+    <h3>{{ column().label }}</h3>
+    <span class="count">{{ column().tasks.length }}</span>
+  </header>
+
+  <!-- The drop list: the area that accepts cards. [cdkDropListData] tags it with its status. -->
+  <div
+    class="card-list"
+    cdkDropList
+    [cdkDropListData]="column().status"
+    (cdkDropListDropped)="dropped.emit($event)"
+  >
+    @for (task of column().tasks; track task.id) {
+    <!-- The draggable wrapper. The card inside stays presentational and drag-agnostic. -->
+    <div
+      class="drag-item"
+      cdkDrag
+      [cdkDragData]="task"
+      [cdkDragDisabled]="isTerminal()"
+    >
+      <app-task-card [task]="task">
+        <!-- Only the grip starts a drag, so the title link and the buttons work normally. -->
+        <span class="grip" cdkDragHandle title="Drag to move" aria-hidden="true"
+          >⋮⋮</span
+        >
+      </app-task-card>
+
+      <div class="card-actions">
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} to previous column"
+          title="Previous column"
+          [disabled]="isTerminal() || !canGoBack()"
+          (click)="keyboardMove.emit({ task, action: 'previous-column' })"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} up"
+          title="Move up"
+          [disabled]="isTerminal() || $first"
+          (click)="keyboardMove.emit({ task, action: 'up' })"
+        >
+          ↑
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} down"
+          title="Move down"
+          [disabled]="isTerminal() || $last"
+          (click)="keyboardMove.emit({ task, action: 'down' })"
+        >
+          ↓
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} to next column"
+          title="Next column"
+          [disabled]="isTerminal() || !canGoForward()"
+          (click)="keyboardMove.emit({ task, action: 'next-column' })"
+        >
+          ›
+        </button>
+      </div>
+
+      <!-- Ghost that follows the pointer. Rendered from this template, so these styles apply. -->
+      <div class="drag-preview" *cdkDragPreview matchSize>
+        <app-task-card [task]="task" />
+      </div>
+
+      <!-- The gap left in the list while the card is dragged. -->
+      <div class="drag-placeholder" *cdkDragPlaceholder>
+        <app-task-card [task]="task" />
+      </div>
+    </div>
+    }
+  </div>
+</section>

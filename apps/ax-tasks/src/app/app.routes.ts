@@ -8,6 +8,11 @@ export const appRoutes: Route[] = [
       import('./features/tasks/task-list').then((m) => m.TaskList),
   },
   {
+    path: 'board',
+    loadComponent: () =>
+      import('./features/board/board-page').then((m) => m.BoardPage),
+  },
+  {
     path: 'tasks/:id',
     loadComponent: () =>
       import('./features/tasks/task-detail').then((m) => m.TaskDetail),

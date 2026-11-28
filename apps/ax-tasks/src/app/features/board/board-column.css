@@ -1,0 +1,97 @@
+:host {
+  display: block;
+}
+.column {
+  background: #f4f5f7;
+  border-radius: 6px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  transition: background 150ms;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem 0.75rem;
+}
+h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.count {
+  color: #666;
+  font-size: 0.85rem;
+}
+/* A minimum height keeps an empty column a valid drop target. */
+.card-list {
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 4px;
+}
+/* Added by the CDK to the list under the pointer while a card is dragged over it. */
+.card-list.cdk-drop-list-receiving {
+  background: #deebff;
+  outline: 2px dashed #4c9aff;
+}
+
+/* The grip is the only part that starts a drag. */
+.grip {
+  cursor: grab;
+  color: #8993a4;
+  user-select: none;
+  letter-spacing: -2px;
+  padding: 0 0.15rem;
+}
+.drag-item.cdk-drag-disabled .grip {
+  visibility: hidden;
+}
+
+/*
+ * Keyboard alternatives to dragging.
+ * Note: in case the buttons need to be revealed on focus or hover, use this technique:
+ * keep them focusable and in the accessibility tree (do not use display: none or hidden),
+ * hide the container with opacity: 0 in a position: absolute corner of .drag-item,
+ * and show it on hover and with :focus-within so keyboard focus stays visible.
+ */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+.card-actions button {
+  min-width: 1.75rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+.card-actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.card-actions button:focus-visible {
+  outline: 2px solid #4c9aff;
+  outline-offset: 1px;
+}
+
+/* Slides smoothly when the CDK makes room for it. */
+.drag-item.cdk-drag-animating {
+  transition: transform 200ms ease;
+}
+/* The ghost: lifted, tilted, with a shadow. */
+.drag-preview {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transform: rotate(2deg);
+  border-radius: 4px;
+}
+/* The gap left behind. */
+.drag-placeholder {
+  opacity: 0.3;
+}
