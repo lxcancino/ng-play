@@ -12,6 +12,6 @@
 <!-- The group lets every column exchange cards with every other column. -->
 <div class="board" cdkDropListGroup>
   @for (column of columns(); track column.status) {
-  <app-board-column [column]="column" />
+  <app-board-column [column]="column" (dropped)="onDropped($event)" />
   }
 </div>

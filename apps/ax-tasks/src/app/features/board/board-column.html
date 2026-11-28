@@ -5,7 +5,12 @@
   </header>
 
   <!-- The drop list: the area that accepts cards. [cdkDropListData] tags it with its status. -->
-  <div class="card-list" cdkDropList [cdkDropListData]="column().status">
+  <div
+    class="card-list"
+    cdkDropList
+    [cdkDropListData]="column().status"
+    (cdkDropListDropped)="dropped.emit($event)"
+  >
     @for (task of column().tasks; track task.id) {
     <!-- The draggable wrapper. The card inside stays presentational and drag-agnostic. -->
     <div class="drag-item" cdkDrag [cdkDragData]="task">

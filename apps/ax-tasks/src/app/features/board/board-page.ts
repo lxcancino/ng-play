@@ -1,9 +1,19 @@
-import { Component, computed, inject, resource } from '@angular/core';
-import { CdkDropListGroup } from '@angular/cdk/drag-drop';
+import {
+  Component,
+  computed,
+  inject,
+  linkedSignal,
+  resource,
+} from '@angular/core';
+import {
+  CdkDragDrop,
+  CdkDropListGroup,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { TASK_REPOSITORY } from '@ng-play/angular/task-data';
-import { TASK_STATUSES } from '@ng-play/shared/task-model';
+import { TASK_STATUSES, TaskStatus } from '@ng-play/shared/task-model';
 import { BoardColumn } from './board-column';
-import { BoardColumnView, STATUS_LABELS } from './board.model';
+import { BoardColumnView, groupByStatus, STATUS_LABELS } from './board.model';
 
 @Component({
   selector: 'app-board-page',
@@ -18,13 +28,39 @@ export class BoardPage {
     loader: () => this.repo.listTasks(),
   });
 
-  /** One column per status, in workflow order. Each task lands in exactly one column. */
+  /**
+   * The order of tasks inside each column. It's writable, because a drop changes it.
+   * linkedSignal starts from the grouped server data and resets whenever `tasks` gets a new value.
+   */
+  private readonly tasksByStatus = linkedSignal(() =>
+    groupByStatus(this.tasks.value() ?? []),
+  );
+
+  /** One column per status, in workflow order. */
   protected readonly columns = computed<BoardColumnView[]>(() => {
-    const all = this.tasks.value() ?? [];
+    const groups = this.tasksByStatus();
     return TASK_STATUSES.map((status) => ({
       status,
       label: STATUS_LABELS[status],
-      tasks: all.filter((t) => t.status === status),
+      tasks: groups[status],
     }));
   });
+
+  /**
+   * Reorders a card inside its column. The CDK has already moved the ghost and the gap;
+   * this is where the data changes. Cross-column drops are handled in Stage 5.
+   */
+  protected onDropped(event: CdkDragDrop<TaskStatus>): void {
+    if (event.previousContainer !== event.container) {
+      return;
+    }
+
+    const status = event.container.data;
+    // moveItemInArray mutates its array, so copy the array and the object before changing them.
+    const groups = { ...this.tasksByStatus() };
+    const column = [...groups[status]];
+    moveItemInArray(column, event.previousIndex, event.currentIndex);
+    groups[status] = column;
+    this.tasksByStatus.set(groups);
+  }
 }

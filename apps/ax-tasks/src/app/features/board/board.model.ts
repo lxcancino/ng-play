@@ -1,4 +1,4 @@
-import { Task, TaskStatus } from '@ng-play/shared/task-model';
+import { Task, TASK_STATUSES, TaskStatus } from '@ng-play/shared/task-model';
 
 /** One board column: a status plus the tasks currently in it. Derived from the task list, never stored. */
 export interface BoardColumnView {
@@ -7,6 +7,8 @@ export interface BoardColumnView {
   tasks: Task[];
 }
 
+export type TasksByStatus = Record<TaskStatus, Task[]>;
+
 export const STATUS_LABELS: Record<TaskStatus, string> = {
   todo: 'To Do',
   'in-progress': 'In Progress',
@@ -14,3 +16,14 @@ export const STATUS_LABELS: Record<TaskStatus, string> = {
   done: 'Done',
   closed: 'Closed',
 };
+
+/** Groups tasks by status. Every status gets a key, even when it has no tasks. */
+export function groupByStatus(tasks: Task[]): TasksByStatus {
+  const groups = Object.fromEntries(
+    TASK_STATUSES.map((status) => [status, [] as Task[]]),
+  ) as TasksByStatus;
+  for (const task of tasks) {
+    groups[task.status].push(task);
+  }
+  return groups;
+}
