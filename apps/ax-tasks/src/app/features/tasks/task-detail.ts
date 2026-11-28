@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -17,7 +16,6 @@ import { TASK_STATUSES, TaskStatus } from '@ng-play/shared/task-model';
   imports: [RouterLink, DatePipe],
   templateUrl: './task-detail.html',
   styleUrl: './task-detail.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskDetail {
   private readonly repo = inject(TASK_REPOSITORY);

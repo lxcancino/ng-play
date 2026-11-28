@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  resource,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TASK_REPOSITORY } from '@ng-play/angular/task-data';
@@ -16,7 +9,6 @@ import { from, map, switchMap, timer } from 'rxjs';
   imports: [RouterLink],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskList {
   private readonly repo = inject(TASK_REPOSITORY);

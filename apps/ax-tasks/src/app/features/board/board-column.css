@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+.column {
+  background: #f4f5f7;
+  border-radius: 6px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  transition: background 150ms;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem 0.75rem;
+}
+h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.count {
+  color: #666;
+  font-size: 0.85rem;
+}
+/* A minimum height keeps an empty column a valid drop target. */
+.card-list {
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 4px;
+}
+/* Added by the CDK to the list under the pointer while a card is dragged over it. */
+.card-list.cdk-drop-list-receiving {
+  background: #deebff;
+  outline: 2px dashed #4c9aff;
+}
+
+/* Draggable wrapper: slides smoothly when the CDK makes room for it. */
+.drag-item.cdk-drag-animating {
+  transition: transform 200ms ease;
+}
+/* The ghost: lifted, tilted, with a shadow. */
+.drag-preview {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transform: rotate(2deg);
+  border-radius: 4px;
+}
+/* The gap left behind. */
+.drag-placeholder {
+  opacity: 0.3;
+}

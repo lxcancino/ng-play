@@ -1,0 +1,17 @@
+<header class="toolbar">
+  <h2>Board</h2>
+  @if (tasks.isLoading()) {
+  <span class="muted">Loading…</span>
+  }
+</header>
+
+@if (tasks.error()) {
+<p class="error">Could not load tasks.</p>
+}
+
+<!-- The group lets every column exchange cards with every other column. -->
+<div class="board" cdkDropListGroup>
+  @for (column of columns(); track column.status) {
+  <app-board-column [column]="column" />
+  }
+</div>

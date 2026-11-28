@@ -1,0 +1,26 @@
+<section class="column">
+  <header>
+    <h3>{{ column().label }}</h3>
+    <span class="count">{{ column().tasks.length }}</span>
+  </header>
+
+  <!-- The drop list: the area that accepts cards. [cdkDropListData] tags it with its status. -->
+  <div class="card-list" cdkDropList [cdkDropListData]="column().status">
+    @for (task of column().tasks; track task.id) {
+    <!-- The draggable wrapper. The card inside stays presentational and drag-agnostic. -->
+    <div class="drag-item" cdkDrag [cdkDragData]="task">
+      <app-task-card [task]="task" />
+
+      <!-- Ghost that follows the pointer. Rendered from this template, so these styles apply. -->
+      <div class="drag-preview" *cdkDragPreview matchSize>
+        <app-task-card [task]="task" />
+      </div>
+
+      <!-- The gap left in the list while the card is dragged. -->
+      <div class="drag-placeholder" *cdkDragPlaceholder>
+        <app-task-card [task]="task" />
+      </div>
+    </div>
+    }
+  </div>
+</section>
