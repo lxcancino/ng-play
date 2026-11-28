@@ -9,6 +9,14 @@ export interface BoardColumnView {
 
 export type TasksByStatus = Record<TaskStatus, Task[]>;
 
+/** Keyboard alternatives to dragging. Each one is a button on a card. */
+export type MoveAction = 'previous-column' | 'next-column' | 'up' | 'down';
+
+export interface KeyboardMove {
+  task: Task;
+  action: MoveAction;
+}
+
 export const STATUS_LABELS: Record<TaskStatus, string> = {
   todo: 'To Do',
   'in-progress': 'In Progress',

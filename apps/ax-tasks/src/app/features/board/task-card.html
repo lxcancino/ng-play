@@ -1,6 +1,9 @@
 <article class="card">
-  <span class="key">{{ task().key }}</span>
-  <p class="title">{{ task().title }}</p>
+  <header class="card-header">
+    <span class="key">{{ task().key }}</span>
+    <ng-content />
+  </header>
+  <a class="title" [routerLink]="['/tasks', task().id]">{{ task().title }}</a>
   <footer>
     <span class="badge">{{ task().type }}</span>
     <span class="badge priority">{{ task().priority }}</span>

@@ -19,7 +19,51 @@
       [cdkDragData]="task"
       [cdkDragDisabled]="isTerminal()"
     >
-      <app-task-card [task]="task" />
+      <app-task-card [task]="task">
+        <!-- Only the grip starts a drag, so the title link and the buttons work normally. -->
+        <span class="grip" cdkDragHandle title="Drag to move" aria-hidden="true"
+          >⋮⋮</span
+        >
+      </app-task-card>
+
+      <div class="card-actions">
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} to previous column"
+          title="Previous column"
+          [disabled]="isTerminal() || !canGoBack()"
+          (click)="keyboardMove.emit({ task, action: 'previous-column' })"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} up"
+          title="Move up"
+          [disabled]="isTerminal() || $first"
+          (click)="keyboardMove.emit({ task, action: 'up' })"
+        >
+          ↑
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} down"
+          title="Move down"
+          [disabled]="isTerminal() || $last"
+          (click)="keyboardMove.emit({ task, action: 'down' })"
+        >
+          ↓
+        </button>
+        <button
+          type="button"
+          aria-label="Move {{ task.key }} to next column"
+          title="Next column"
+          [disabled]="isTerminal() || !canGoForward()"
+          (click)="keyboardMove.emit({ task, action: 'next-column' })"
+        >
+          ›
+        </button>
+      </div>
 
       <!-- Ghost that follows the pointer. Rendered from this template, so these styles apply. -->
       <div class="drag-preview" *cdkDragPreview matchSize>

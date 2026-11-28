@@ -39,13 +39,48 @@ h3 {
   outline: 2px dashed #4c9aff;
 }
 
-/* Draggable wrapper: grab cursor, and a plain one when dragging is switched off. */
-.drag-item {
+/* The grip is the only part that starts a drag. */
+.grip {
   cursor: grab;
+  color: #8993a4;
+  user-select: none;
+  letter-spacing: -2px;
+  padding: 0 0.15rem;
 }
-.drag-item.cdk-drag-disabled {
+.drag-item.cdk-drag-disabled .grip {
+  visibility: hidden;
+}
+
+/*
+ * Keyboard alternatives to dragging.
+ * Note: in case the buttons need to be revealed on focus or hover, use this technique:
+ * keep them focusable and in the accessibility tree (do not use display: none or hidden),
+ * hide the container with opacity: 0 in a position: absolute corner of .drag-item,
+ * and show it on hover and with :focus-within so keyboard focus stays visible.
+ */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+.card-actions button {
+  min-width: 1.75rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+.card-actions button:disabled {
+  opacity: 0.4;
   cursor: default;
 }
+.card-actions button:focus-visible {
+  outline: 2px solid #4c9aff;
+  outline-offset: 1px;
+}
+
 /* Slides smoothly when the CDK makes room for it. */
 .drag-item.cdk-drag-animating {
   transition: transform 200ms ease;
