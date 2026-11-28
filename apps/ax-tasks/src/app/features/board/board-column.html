@@ -13,7 +13,12 @@
   >
     @for (task of column().tasks; track task.id) {
     <!-- The draggable wrapper. The card inside stays presentational and drag-agnostic. -->
-    <div class="drag-item" cdkDrag [cdkDragData]="task">
+    <div
+      class="drag-item"
+      cdkDrag
+      [cdkDragData]="task"
+      [cdkDragDisabled]="isTerminal()"
+    >
       <app-task-card [task]="task" />
 
       <!-- Ghost that follows the pointer. Rendered from this template, so these styles apply. -->

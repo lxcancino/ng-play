@@ -7,6 +7,8 @@
 
 @if (tasks.error()) {
 <p class="error">Could not load tasks.</p>
+} @if (saveError(); as message) {
+<p class="error">{{ message }}</p>
 }
 
 <!-- The group lets every column exchange cards with every other column. -->

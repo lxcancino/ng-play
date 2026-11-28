@@ -39,7 +39,14 @@ h3 {
   outline: 2px dashed #4c9aff;
 }
 
-/* Draggable wrapper: slides smoothly when the CDK makes room for it. */
+/* Draggable wrapper: grab cursor, and a plain one when dragging is switched off. */
+.drag-item {
+  cursor: grab;
+}
+.drag-item.cdk-drag-disabled {
+  cursor: default;
+}
+/* Slides smoothly when the CDK makes room for it. */
 .drag-item.cdk-drag-animating {
   transition: transform 200ms ease;
 }
